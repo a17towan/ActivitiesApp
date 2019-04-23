@@ -2,19 +2,29 @@ package com.example.brom.activitiesapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class MainActivity extends AppCompatActivity {
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
     private String[] mountainLocations = {"Alps","Alps","Alaska"};
     private int[] mountainHeights ={4478,4808,6190};
     // Create ArrayLists from the raw data above and use these lists when populating your ListView.
+    private ArrayList<String> listData=new ArrayList<>(Arrays.asList(mountainNames));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Create a ListView as in previous assignment
+        // 1. Create a ListView as in previous assignment*
         // 2. Create a new activity named "MountainDetailsActivity
         // 3. Create a new Layout file for the MountainDetailsActivity called
         //    "activity_mountaindetails". MountainDetailsActivity must have MainActivity as its
@@ -33,5 +43,19 @@ public class MainActivity extends AppCompatActivity {
         // 8. From the MountainDetailsActivity you should have an option to "go back" using an
         //    left arro button. This is done by letting the MainActivity be the parent activity to
         //    MountainDetailsActivity.
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.list_item_textview, R.id.list_item_textview, listData);
+
+        ListView my_listview=(ListView) findViewById(R.id.my_listview);
+        my_listview.setAdapter(adapter);
+
+        my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String korv =new String("");
+                Toast.makeText(getApplicationContext(), korv+"Name:"+mountainNames[i]+ "|Location:"+mountainLocations[i]+"|Mountain height:"+mountainHeights[i], Toast.LENGTH_SHORT).show();
+            }
+
+        });
     }
 }
