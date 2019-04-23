@@ -12,7 +12,8 @@
         <activity
             android:name=".MountainDetailsActivity"
             android:label = "Mountain Details Activity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,7 +1,9 @@
 package com.example.brom.activitiesapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,9 @@ import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
     private String[] mountainLocations = {"Alps","Alps","Alaska"};
     private int[] mountainHeights ={4478,4808,6190};
@@ -44,18 +49,29 @@ public class MainActivity extends AppCompatActivity {
         //    left arro button. This is done by letting the MainActivity be the parent activity to
         //    MountainDetailsActivity.
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, R.layout.list_item_textview, R.id.list_item_textview, listData);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item_textview, R.id.list_item_textviewtest, listData);
 
-        ListView my_listview=(ListView) findViewById(R.id.my_listview);
+        ListView my_listview = (ListView) findViewById(R.id.my_listview);
         my_listview.setAdapter(adapter);
 
         my_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String korv =new String("");
+                String korv = new String("");
+                Intent intent = new Intent(MainActivity.this, MountainDetailsActivity.class);
+                intent.putExtra("HEIGHT", mountainHeights[i]);
+                intent.putExtra("LOCATION", mountainLocations[i]);
+                intent.putExtra("NAME", mountainNames[i]);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(), korv+"Name:"+mountainNames[i]+ "|Location:"+mountainLocations[i]+"|Mountain height:"+mountainHeights[i], Toast.LENGTH_SHORT).show();
             }
 
         });
     }
+/*
+    public void launchMountainDetailsActivity(View view) {
+        Log.d(LOG_TAG, "Button clicked!");
+
+    }
+    */
 }
